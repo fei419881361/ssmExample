@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.AdminMapper">
+  <resultMap id="BaseResultMap" type="entity.Admin">
+    <id column="a_id" jdbcType="INTEGER" property="aId" />
+    <result column="a_num" jdbcType="VARCHAR" property="aNum" />
+    <result column="a_password" jdbcType="VARCHAR" property="aPassword" />
+    <result column="a_name" jdbcType="VARCHAR" property="aName" />
+  </resultMap>
+
+  <select id="selectByNameAndPassword" resultType="entity.Admin">
+    SELECT
+    *
+    FROM
+    admin a
+    WHERE
+    a.a_password = #{password} AND a.a_num = #{username}
+  </select>
+</mapper>

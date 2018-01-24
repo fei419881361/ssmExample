@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.BookMapper">
+  <resultMap id="BaseResultMap" type="entity.Book">
+    <id column="b_id" jdbcType="INTEGER" property="bId" />
+    <result column="b_status" jdbcType="INTEGER" property="bStatus" />
+    <result column="b_name" jdbcType="VARCHAR" property="bName" />
+    <result column="b_author" jdbcType="VARCHAR" property="bAuthor" />
+    <result column="b_location" jdbcType="VARCHAR" property="bLocation" />
+  </resultMap>
+  <select id="getAllBookNums" resultType="java.lang.Integer">
+    SELECT COUNT(*) FROM book
+  </select>
+  <select id="findBookByPageNum" resultMap="BaseResultMap">
+    select * from book limit #{pageon},#{Pagenum}
+  </select>
+  <select id="findBookById" resultType="entity.Book">
+
+    SELECT
+    *
+    FROM
+    book b
+    WHERE
+    b.b_id = #{book_id}
+  </select>
+  <update id="updateByPrimaryKey" parameterType="entity.Book">
+    UPDATE  book set b_status= #{bStatus} WHERE b_id = #{bId}
+  </update>
+
+  <!--<delete id="">-->
+    <!--DELETE FROM book  WHERE b_id = #{book.bId}-->
+  <!--</delete>-->
+  <update id="modifybook" parameterType="entity.Book">
+     UPDATE  book set
+     b_status= #{bStatus},
+     b_name = #{bName},
+     b_author = #{bAuthor},
+      b_location = #{bLocation}
+      WHERE b_id = #{bId}
+  </update>
+
+  <delete id="deletebook" parameterType="entity.Book">
+    DELETE FROM book WHERE b_id = #{bId}
+  </delete>
+  <insert id="insert" parameterType="entity.Book">
+    INSERT INTO book (b_status,b_name,b_author,b_location) VALUES (#{bStatus},#{bName},#{bAuthor},#{bLocation})
+  </insert>
+</mapper>
